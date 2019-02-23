@@ -1,75 +1,74 @@
 'use strict';
 
-const mainFilter = document.querySelector('.main__filter');
-const boardTasks = document.querySelector('.board__tasks');
+const mainFilter = document.querySelector(`.main__filter`);
+const boardTasks = document.querySelector(`.board__tasks`);
 const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 
 const filters = [
   {
-    title: 'All',
+    title: `All`,
     number: getRandomNum(15, 20)
   },
   {
-    title: 'Overdue',
+    title: `Overdue`,
     number: getRandomNum(1, 15)
   },
   {
-    title: 'Today',
+    title: `Today`,
     number: getRandomNum(2, 15)
   },
   {
-    title: 'Favorites',
+    title: `Favorites`,
     number: getRandomNum(5, 30)
   },
   {
-    title: 'Repeating',
+    title: `Repeating`,
     number: getRandomNum(3, 25)
   },
   {
-    title: 'Tags',
+    title: `Tags`,
     number: getRandomNum(5, 15)
   },
   {
-    title: 'Archive',
+    title: `Archive`,
     number: getRandomNum(1, 10)
   }
 ];
 
 filters.forEach((filter) => {
-  console.log(filter);
-  let input = document.createElement('input');
-  input.classList.add('filter__input', 'visually-hidden');
-  input.setAttribute('id', 'filter__' + filter.title.toLowerCase());
-  input.setAttribute('type', 'radio');
-  input.setAttribute('name', 'filter');
-  let label = document.createElement('label');
-  label.className ='filter__label';
-  label.setAttribute('for', 'filter__' + filter.title.toLowerCase());
-  label.innerHTML = '<span>' + filter.title + ' ' +  filter.number + '</span>';
+  let input = document.createElement(`input`);
+  input.classList.add(`filter__input`, `visually-hidden`);
+  input.setAttribute(`id`, `filter__` + filter.title.toLowerCase());
+  input.setAttribute(`type`, `radio`);
+  input.setAttribute(`name`, `filter`);
+  let label = document.createElement(`label`);
+  label.className = `filter__label`;
+  label.setAttribute(`for`, `filter__` + filter.title.toLowerCase());
+  label.innerHTML = `<span>` + filter.title + ` ` + filter.number + `</span>`;
   mainFilter.appendChild(input);
   mainFilter.appendChild(label);
 });
 
 
-const cardColors = ['pink', 'blue', 'black', 'yelow'];
-const cardFunction = ['edit', 'repeat', 'deadline'];
+const cardColors = [`pink`, `blue`, `black`, `yelow`];
+const cardFunction = [`edit`, `repeat`, `deadline`];
 
 const cardsRender = function (num) {
   for (let i = 0; i < num; i++) {
     const fragment = document.createDocumentFragment();
-    const article = document.createElement('article');
-    article.classList.add('card', 'card--' + cardColors[getRandomNum(0,4)], 'card--' + cardFunction[getRandomNum(0,3)]);
+    const article = document.createElement(`article`);
+    article.classList.add(`card`, `card--` + cardColors[getRandomNum(0, 4)], `card--` + cardFunction[getRandomNum(0, 3)]);
     article.innerHTML = cardTemplate;
     fragment.appendChild(article);
     boardTasks.appendChild(fragment);
   }
 };
 
-const filterLabel = document.querySelectorAll('.filter__label');
+const filterLabel = document.querySelectorAll(`.filter__label`);
 filterLabel.forEach((el) => {
-  el.addEventListener('click', function () {
-    boardTasks.innerHTML = '';
+  el.addEventListener(`click`, function () {
+    boardTasks.innerHTML = ``;
     cardsRender(getRandomNum(5, 15));
   });
 });
@@ -291,4 +290,4 @@ const cardTemplate = `<form class="card__form" method="get">
       <button class="card__delete" type="button">delete</button>
     </div>
   </div>
-</form>`
+</form>`;
