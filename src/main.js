@@ -291,3 +291,4 @@ const cardTemplate = `<form class="card__form" method="get">
     </div>
   </div>
 </form>`;
+
