@@ -1,4 +1,4 @@
-export default () => `<article class="card card--pink card--repeat">
+export default (task) => `<article class="card card--pink card--repeat">
             <form class="card__form" method="get">
               <div class="card__inner">
                 <div class="card__control">
@@ -28,8 +28,7 @@ export default () => `<article class="card card--pink card--repeat">
                       class="card__text"
                       placeholder="Start typing your text here..."
                       name="text"
-                    >
-It is example of repeating task. It marks by wave.</textarea
+                    >${task.title}</textarea
                     >
                   </label>
                 </div>

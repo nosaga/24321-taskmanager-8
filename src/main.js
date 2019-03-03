@@ -1,5 +1,6 @@
 import makeFilter from './make-filter.js';
 import makeTask from './make-task.js';
+import {getTask} from "./get-task";
 
 const filters = document.querySelector(`.main__filter`);
 const tasksBoard = document.querySelector(`.board__tasks`);
@@ -16,7 +17,7 @@ filters.insertAdjacentHTML(`beforeend`, makeFilter(`Archive`, getRandomNum(1, 10
 const renderTasks = (dist, num) => {
   const tasks = new Array(7)
     .fill()
-    .map(makeTask);
+    .map(makeTask(getTask()));
   dist.insertAdjacentHTML(`beforeend`, tasks.join(``), num);
 };
 
