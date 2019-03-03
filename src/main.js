@@ -6,12 +6,12 @@ const tasksBoard = document.querySelector(`.board__tasks`);
 const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 filters.forEach((filter) => {
-  let input = document.createElement(`input`);
+  const input = document.createElement(`input`);
   input.classList.add(`filter__input`, `visually-hidden`);
   input.setAttribute(`id`, `filter__` + filter.title.toLowerCase());
   input.setAttribute(`type`, `radio`);
   input.setAttribute(`name`, `filter`);
-  let label = document.createElement(`label`);
+  const label = document.createElement(`label`);
   label.className = `filter__label`;
   label.setAttribute(`for`, `filter__` + filter.title.toLowerCase());
   label.innerHTML = `<span>` + filter.title + ` ` + filter.number + `</span>`;
