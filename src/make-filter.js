@@ -1,10 +1,33 @@
-export default (caption, count, checked = false) => `<input
-          type="radio"
-          id="filter__overdue"
-          class="filter__input visually-hidden"
-          name="filter"
-          ${checked ? `checked` : ``}
-        />
-        <label for="filter__overdue" class="filter__label"
-          >${caption} <span class="filter__overdue-count">${count}</span></label
-        >`;
+const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+export const filters = [
+  {
+    title: `All`,
+    number: getRandomNum(1, 5)
+  },
+  {
+    title: `Overdue`,
+    number: getRandomNum(0, 10)
+  },
+  {
+    title: `Today`,
+    number: getRandomNum(1, 15)
+  },
+  {
+    title: `Favorites`,
+    number: getRandomNum(1, 17)
+  },
+  {
+    title: `Repeating`,
+    number: getRandomNum(3, 5)
+  },
+  {
+    title: `Tags`,
+    number: getRandomNum(1, 7)
+  },
+  {
+    title: `Archive`,
+    number: getRandomNum(1, 5)
+  }
+];
+
