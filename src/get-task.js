@@ -1,4 +1,4 @@
-const getTask = () => ({
+export const getTask = () => ({
   title: [
     `Get better understanding of Maps and Sets`,
     `Feed birds and ducks`,
@@ -23,6 +23,10 @@ const getTask = () => ({
     'sa': false,
     'su': false,
   },
+  color: new Set([`black`, `yellow`, `blue`, `green`, `pink`]),
+  isFavourite: true,
+  isDone: true
 });
 
-export {getTask};
+
+export const getTaskType = [`card--edit card--black`, `card--pink card--repeat`, `card--yellow card--deadline`, `card--blue`, `card--edit card--yellow card--repeat`, `card--blue`, `card--pink card-repeat`]

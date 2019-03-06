@@ -1,4 +1,6 @@
-export default (task) => `<article class="card card--pink card--repeat">
+import {getTaskType} from "./get-task";
+
+export default (task) => getTaskType.map((card) => `<article class="card ${card}">
             <form class="card__form" method="get">
               <div class="card__inner">
                 <div class="card__control">
@@ -27,9 +29,8 @@ export default (task) => `<article class="card card--pink card--repeat">
                     <textarea
                       class="card__text"
                       placeholder="Start typing your text here..."
-                      name="text"
-                    >${task.title}</textarea
-                    >
+                      name="text" 
+                    >${task.title}</textarea>
                   </label>
                 </div>
 
@@ -37,7 +38,7 @@ export default (task) => `<article class="card card--pink card--repeat">
                   <div class="card__details">
                     <div class="card__dates">
                       <button class="card__date-deadline-toggle" type="button">
-                        date: <span class="card__date-status">no</span>
+                        date: <span class="card__date-status">${task.dueDate !== Date.now() ? ` Yes` : ``}</span>
                       </button>
 
                       <fieldset class="card__date-deadline" disabled>
@@ -45,7 +46,7 @@ export default (task) => `<article class="card card--pink card--repeat">
                           <input
                             class="card__date"
                             type="text"
-                            placeholder="23 September"
+                            placeholder="September"
                             name="date"
                           />
                         </label>
@@ -144,7 +145,7 @@ export default (task) => `<article class="card card--pink card--repeat">
 
                     <div class="card__hashtag">
                       <div class="card__hashtag-list">
-                        <span class="card__hashtag-inner">
+                        ${[...task.tags].map((it) => `<span class="card__hashtag-inner">
                           <input
                             type="hidden"
                             name="hashtag"
@@ -152,42 +153,13 @@ export default (task) => `<article class="card card--pink card--repeat">
                             class="card__hashtag-hidden-input"
                           />
                           <button type="button" class="card__hashtag-name">
-                            #repeat
+                             #${it}
                           </button>
                           <button type="button" class="card__hashtag-delete">
-                            delete
+                            #${it}
                           </button>
-                        </span>
+                        </span>`).join(``)}
 
-                        <span class="card__hashtag-inner">
-                          <input
-                            type="hidden"
-                            name="hashtag"
-                            value="repeat"
-                            class="card__hashtag-hidden-input"
-                          />
-                          <button type="button" class="card__hashtag-name">
-                            #cinema
-                          </button>
-                          <button type="button" class="card__hashtag-delete">
-                            delete
-                          </button>
-                        </span>
-
-                        <span class="card__hashtag-inner">
-                          <input
-                            type="hidden"
-                            name="hashtag"
-                            value="repeat"
-                            class="card__hashtag-hidden-input"
-                          />
-                          <button type="button" class="card__hashtag-name">
-                            #entertaiment
-                          </button>
-                          <button type="button" class="card__hashtag-delete">
-                            delete
-                          </button>
-                        </span>
                       </div>
 
                       <label>
@@ -208,7 +180,7 @@ export default (task) => `<article class="card card--pink card--repeat">
                       name="img"
                     />
                     <img
-                      src="img/add-photo.svg"
+                      src="${task.picture}"
                       alt="task picture"
                       class="card__img"
                     />
@@ -217,67 +189,19 @@ export default (task) => `<article class="card card--pink card--repeat">
                   <div class="card__colors-inner">
                     <h3 class="card__colors-title">Color</h3>
                     <div class="card__colors-wrap">
-                      <input
+                      ${[...task.color].map((it) => `<input
                         type="radio"
-                        id="color-black-2"
-                        class="card__color-input card__color-input--black visually-hidden"
+                        id="color-${it}-2"
+                        class="card__color-input card__color-input--${it} visually-hidden"
                         name="color"
-                        value="black"
+                        value="${it}"
                       />
                       <label
-                        for="color-black-2"
-                        class="card__color card__color--black"
-                        >black</label
-                      >
-                      <input
-                        type="radio"
-                        id="color-yellow-2"
-                        class="card__color-input card__color-input--yellow visually-hidden"
-                        name="color"
-                        value="yellow"
-                      />
-                      <label
-                        for="color-yellow-2"
-                        class="card__color card__color--yellow"
-                        >yellow</label
-                      >
-                      <input
-                        type="radio"
-                        id="color-blue-2"
-                        class="card__color-input card__color-input--blue visually-hidden"
-                        name="color"
-                        value="blue"
-                      />
-                      <label
-                        for="color-blue-2"
-                        class="card__color card__color--blue"
-                        >blue</label
-                      >
-                      <input
-                        type="radio"
-                        id="color-green-2"
-                        class="card__color-input card__color-input--green visually-hidden"
-                        name="color"
-                        value="green"
-                      />
-                      <label
-                        for="color-green-2"
-                        class="card__color card__color--green"
-                        >green</label
-                      >
-                      <input
-                        type="radio"
-                        id="color-pink-2"
-                        class="card__color-input card__color-input--pink visually-hidden"
-                        name="color"
-                        value="pink"
-                        checked
-                      />
-                      <label
-                        for="color-pink-2"
-                        class="card__color card__color--pink"
-                        >pink</label
-                      >
+                        for="color-${it}-2"
+                        class="card__color card__color--${it}"
+                        >${it}</label
+                      >`).join(``)}
+                      
                     </div>
                   </div>
                 </div>
@@ -288,4 +212,4 @@ export default (task) => `<article class="card card--pink card--repeat">
                 </div>
               </div>
             </form>
-          </article>`;
+          </article>`).join(``);

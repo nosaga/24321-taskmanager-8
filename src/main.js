@@ -20,17 +20,14 @@ filters.forEach((filter) => {
   mainFilter.appendChild(label);
 });
 
-const renderTasks = (dist, num) => {
-  const tasks = new Array(7)
-    .fill()
-    .map(makeTask(getTask()));
-  dist.insertAdjacentHTML(`beforeend`, tasks.join(``), num);
+const renderTasks = (dist) => {
+  dist.insertAdjacentHTML(`beforeend`, makeTask(getTask()));
 };
 
 const filterLabel = document.querySelectorAll(`.filter__label`);
 filterLabel.forEach((el) => {
   el.addEventListener(`click`, function () {
     tasksBoard.innerHTML = ``;
-    renderTasks(tasksBoard, getRandomNum(5, 15));
+    renderTasks(tasksBoard);
   });
 });
