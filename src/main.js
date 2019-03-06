@@ -4,7 +4,7 @@ import {getTask} from "./get-task";
 
 const mainFilter = document.querySelector(`.main__filter`);
 const tasksBoard = document.querySelector(`.board__tasks`);
-//const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+// const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 filters.forEach((filter) => {
   const input = document.createElement(`input`);
