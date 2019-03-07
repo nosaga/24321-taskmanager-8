@@ -1,4 +1,7 @@
 import {getTaskType} from "./get-task";
+import {cardColors} from "./get-task";
+import {isActvieDay} from "./get-task";
+import {isDisabled} from "./get-task";
 
 export default (task) => getTaskType.map((card) => `<article class="card ${card}">
             <form class="card__form" method="get">
@@ -7,12 +10,12 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                   <button type="button" class="card__btn card__btn--edit">
                     edit
                   </button>
-                  <button type="button" class="card__btn card__btn--archive">
+                  <button type="button" class="card__btn card__btn--archive ${isDisabled(task.archive)}">
                     archive
                   </button>
                   <button
                     type="button"
-                    class="card__btn card__btn--favorites card__btn--disabled"
+                    class="card__btn card__btn--favorites ${isDisabled(task.favourite)}"
                   >
                     favorites
                   </button>
@@ -72,6 +75,7 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-mo-2"
                             name="repeat"
                             value="mo"
+                            ${isActvieDay(task.repeatingDays.mo)}
                           />
                           <label class="card__repeat-day" for="repeat-mo-2"
                             >mo</label
@@ -82,7 +86,8 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-tu-2"
                             name="repeat"
                             value="tu"
-                            checked
+                            ${isActvieDay(task.repeatingDays.tu)}
+
                           />
                           <label class="card__repeat-day" for="repeat-tu-2"
                             >tu</label
@@ -93,6 +98,8 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-we-2"
                             name="repeat"
                             value="we"
+                            ${isActvieDay(task.repeatingDays.we)}
+
                           />
                           <label class="card__repeat-day" for="repeat-we-2"
                             >we</label
@@ -103,6 +110,8 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-th-2"
                             name="repeat"
                             value="th"
+                            ${isActvieDay(task.repeatingDays.th)}
+
                           />
                           <label class="card__repeat-day" for="repeat-th-2"
                             >th</label
@@ -113,7 +122,8 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-fr-2"
                             name="repeat"
                             value="fr"
-                            checked
+                            ${isActvieDay(task.repeatingDays.fr)}
+
                           />
                           <label class="card__repeat-day" for="repeat-fr-2"
                             >fr</label
@@ -124,6 +134,8 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             name="repeat"
                             value="sa"
                             id="repeat-sa-2"
+                            ${isActvieDay(task.repeatingDays.sa)}
+
                           />
                           <label class="card__repeat-day" for="repeat-sa-2"
                             >sa</label
@@ -134,7 +146,7 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-su-2"
                             name="repeat"
                             value="su"
-                            checked
+                            ${isActvieDay(task.repeatingDays.su)}
                           />
                           <label class="card__repeat-day" for="repeat-su-2"
                             >su</label
@@ -189,19 +201,20 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                   <div class="card__colors-inner">
                     <h3 class="card__colors-title">Color</h3>
                     <div class="card__colors-wrap">
-                      ${[...task.color].map((it) => `<input
+                    ${[...cardColors].map((color) => `
+                      <input
                         type="radio"
-                        id="color-${it}-2"
-                        class="card__color-input card__color-input--${it} visually-hidden"
+                        id="color-${color}-2"
+                        class="card__color-input card__color-input--${color} visually-hidden"
                         name="color"
-                        value="${it}"
+                        value="${color}"
+                        ${color === task.color ? `checked` : ``}
                       />
                       <label
-                        for="color-${it}-2"
-                        class="card__color card__color--${it}"
-                        >${it}</label
+                        for="color-${color}-2"
+                        class="card__color card__color--${color}"
+                        >${color}</label
                       >`).join(``)}
-                      
                     </div>
                   </div>
                 </div>
