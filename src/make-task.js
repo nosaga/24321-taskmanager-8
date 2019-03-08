@@ -1,6 +1,5 @@
 import {getTaskType} from "./get-task";
-import {cardColors} from "./get-task";
-import {isActvieDay} from "./get-task";
+import {isActive} from "./get-task";
 import {isDisabled} from "./get-task";
 
 export default (task) => getTaskType.map((card) => `<article class="card ${card}">
@@ -75,7 +74,7 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-mo-2"
                             name="repeat"
                             value="mo"
-                            ${isActvieDay(task.repeatingDays.mo)}
+                            ${isActive(task.repeatingDays.mo)}
                           />
                           <label class="card__repeat-day" for="repeat-mo-2"
                             >mo</label
@@ -86,7 +85,7 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-tu-2"
                             name="repeat"
                             value="tu"
-                            ${isActvieDay(task.repeatingDays.tu)}
+                            ${isActive(task.repeatingDays.tu)}
 
                           />
                           <label class="card__repeat-day" for="repeat-tu-2"
@@ -98,7 +97,7 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-we-2"
                             name="repeat"
                             value="we"
-                            ${isActvieDay(task.repeatingDays.we)}
+                            ${isActive(task.repeatingDays.we)}
 
                           />
                           <label class="card__repeat-day" for="repeat-we-2"
@@ -110,7 +109,7 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-th-2"
                             name="repeat"
                             value="th"
-                            ${isActvieDay(task.repeatingDays.th)}
+                            ${isActive(task.repeatingDays.th)}
 
                           />
                           <label class="card__repeat-day" for="repeat-th-2"
@@ -122,7 +121,7 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-fr-2"
                             name="repeat"
                             value="fr"
-                            ${isActvieDay(task.repeatingDays.fr)}
+                            ${isActive(task.repeatingDays.fr)}
 
                           />
                           <label class="card__repeat-day" for="repeat-fr-2"
@@ -134,7 +133,7 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             name="repeat"
                             value="sa"
                             id="repeat-sa-2"
-                            ${isActvieDay(task.repeatingDays.sa)}
+                            ${isActive(task.repeatingDays.sa)}
 
                           />
                           <label class="card__repeat-day" for="repeat-sa-2"
@@ -146,7 +145,7 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                             id="repeat-su-2"
                             name="repeat"
                             value="su"
-                            ${isActvieDay(task.repeatingDays.su)}
+                            ${isActive(task.repeatingDays.su)}
                           />
                           <label class="card__repeat-day" for="repeat-su-2"
                             >su</label
@@ -201,20 +200,71 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                   <div class="card__colors-inner">
                     <h3 class="card__colors-title">Color</h3>
                     <div class="card__colors-wrap">
-                    ${[...cardColors].map((color) => `
-                      <input
+                    <input
                         type="radio"
-                        id="color-${color}-2"
-                        class="card__color-input card__color-input--${color} visually-hidden"
+                        id="color-black-2"
+                        class="card__color-input card__color-input--black visually-hidden"
                         name="color"
-                        value="${color}"
-                        ${color === task.color ? `checked` : ``}
+                        value="black"
+                        ${isActive(task.color)}
                       />
                       <label
-                        for="color-${color}-2"
-                        class="card__color card__color--${color}"
-                        >${color}</label
-                      >`).join(``)}
+                        for="color-black-2"
+                        class="card__color card__color--black"
+                        >black</label
+                      >
+                      <input
+                        type="radio"
+                        id="color-yellow-2"
+                        class="card__color-input card__color-input--yellow visually-hidden"
+                        name="color"
+                        value="yellow"
+                        ${isActive(task.color)}
+                      />
+                      <label
+                        for="color-yellow-2"
+                        class="card__color card__color--yellow"
+                        >yellow</label
+                      >
+                      <input
+                        type="radio"
+                        id="color-blue-2"
+                        class="card__color-input card__color-input--blue visually-hidden"
+                        name="color"
+                        value="blue"
+                        ${isActive(task.color)}
+                      />
+                      <label
+                        for="color-blue-2"
+                        class="card__color card__color--blue"
+                        >blue</label
+                      >
+                      <input
+                        type="radio"
+                        id="color-green-2"
+                        class="card__color-input card__color-input--green visually-hidden"
+                        name="color"
+                        value="green"
+                        ${isActive(task.color)}
+                      />
+                      <label
+                        for="color-green-2"
+                        class="card__color card__color--green"
+                        >green</label
+                      >
+                      <input
+                        type="radio"
+                        id="color-pink-2"
+                        class="card__color-input card__color-input--pink visually-hidden"
+                        name="color"
+                        value="pink"
+                        ${console.log(isActive(task.color))}
+                      />
+                      <label
+                        for="color-pink-2"
+                        class="card__color card__color--pink"
+                        >pink</label
+                      >
                     </div>
                   </div>
                 </div>

@@ -33,7 +33,7 @@ const cardTitle = [
 ];
 const boolValues = [true, false];
 
-export const isActvieDay = (active) => active ? `checked` : ``;
+export const isActive = (active) => active ? `checked` : ``;
 export const isDisabled = (disable) => disable ? `card__btn--disabled` : ``;
 export const cardColors = [`black`, `yellow`, `blue`, `green`, `pink`];
 export const getTaskType = [`card--edit card--black`, `card--pink card--repeat`, `card--yellow card--deadline`, `card--blue`, `card--edit card--yellow card--repeat`, `card--blue`, `card--pink card-repeat`];
