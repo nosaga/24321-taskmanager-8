@@ -258,7 +258,7 @@ export default (task) => getTaskType.map((card) => `<article class="card ${card}
                         class="card__color-input card__color-input--pink visually-hidden"
                         name="color"
                         value="pink"
-                        ${console.log(isActive(task.color))}
+                        ${isActive(task.color)}
                       />
                       <label
                         for="color-pink-2"
