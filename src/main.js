@@ -1,9 +1,10 @@
 import {filters} from './make-filter.js';
 import makeTask from './make-task.js';
+import {getTask} from "./get-task";
 
 const mainFilter = document.querySelector(`.main__filter`);
 const tasksBoard = document.querySelector(`.board__tasks`);
-const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+export const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 filters.forEach((filter) => {
   const input = document.createElement(`input`);
@@ -19,17 +20,14 @@ filters.forEach((filter) => {
   mainFilter.appendChild(label);
 });
 
-const renderTasks = (dist, num) => {
-  const tasks = new Array(7)
-    .fill()
-    .map(makeTask);
-  dist.insertAdjacentHTML(`beforeend`, tasks.join(``), num);
+const renderTasks = (dist) => {
+  dist.insertAdjacentHTML(`beforeend`, makeTask(getTask()));
 };
 
 const filterLabel = document.querySelectorAll(`.filter__label`);
 filterLabel.forEach((el) => {
   el.addEventListener(`click`, function () {
     tasksBoard.innerHTML = ``;
-    renderTasks(tasksBoard, getRandomNum(5, 15));
+    renderTasks(tasksBoard);
   });
 });
