@@ -11,7 +11,7 @@ export const cardColors = [`black`, `yellow`, `blue`, `green`, `pink`];
 export const getTaskType = [`card--edit card--black`, `card--pink card--repeat`, `card--yellow card--deadline`, `card--blue`, `card--edit card--yellow card--repeat`, `card--blue`, `card--pink card-repeat`];
 const boolValues = [true, false];
 
-export const task = {
+export const getTask = () => ({
   title: cardTitle[getRandomNum(0, 4)],
   dueDate: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
   tags: new Set([
@@ -34,7 +34,7 @@ export const task = {
   color: cardColors[getRandomNum(0, 5)],
   favourite: boolValues[getRandomNum(0, 2)],
   archive: boolValues[getRandomNum(0, 2)]
-};
+});
 
 export const isActive = (active) => active ? `checked` : ``;
 export const isDisabled = (disable) => disable ? `card__btn--disabled` : ``;

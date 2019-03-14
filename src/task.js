@@ -318,7 +318,7 @@ export class Task {
 
   unbind() {
     this._element.querySelector(`.card__btn--edit`)
-      .removeEventListener(`click`, this._onEditButtonClick.bind(this));
+      .removeEventListener(`click`, this._onEditButtonClick);
   }
 
   render() {

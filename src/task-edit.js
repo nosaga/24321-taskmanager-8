@@ -1,4 +1,3 @@
-import {isActive, isDisabled} from "./get-task";
 import {createElement} from "./create-element";
 
 export class TaskEdit {
@@ -13,6 +12,7 @@ export class TaskEdit {
     this._archive = data.archive;
     this._element = null;
     this._onSubmit = null;
+    this._unEdit = null;
   }
 
   _onSubmitButtonClick(evt) {
@@ -22,8 +22,18 @@ export class TaskEdit {
     }
   }
 
+  _unEditCardClick() {
+    if (typeof this._unEdit === `function`) {
+      this._unEdit();
+    }
+  }
+
   _isRepeated() {
     return Object.values(this._repeatingDays).some((it) => it === true);
+  }
+
+  set unEdit(fn) {
+    this._unEdit = fn;
   }
 
   set onSubmit(fn) {
@@ -159,6 +169,11 @@ export class TaskEdit {
       .addEventListener(`submit`, this._onSubmitButtonClick.bind(this));
   }
 
+  unEdit() {
+    this._element.querySelector(`.card__btn--edit`)
+      .addEventListener(`click`, this._unEditCardClick.bind(this));
+  }
+
   unbind() {
     this._element.querySelector(`.card__form`)
       .removeEventListener(`click`, this._onSubmitButtonClick);
@@ -167,6 +182,7 @@ export class TaskEdit {
   render() {
     this._element = createElement(this.template);
     this.bind();
+    this.unEdit();
     return this._element;
   }
 
