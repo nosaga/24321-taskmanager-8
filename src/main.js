@@ -1,5 +1,5 @@
 import {filters} from './make-filter.js';
-import {getTask} from "./get-task";
+import {tasks} from "./get-task";
 import {Task} from "./task";
 import {TaskEdit} from "./task-edit";
 
@@ -21,16 +21,14 @@ filters.forEach((filter) => {
   mainFilter.appendChild(label);
 });
 
-const taskComponent = new Task(getTask());
-const editTaskComponent = new TaskEdit(getTask());
-
-const renderAllCards = (num) => {
-  for (let i = 0; i < num; i++) {
+const renderTasks = () => {
+  tasks.forEach((item) => {
+    const taskComponent = new Task(item);
+    const editTaskComponent = new TaskEdit(item);
     tasksBoard.appendChild(taskComponent.render());
-
     taskComponent.onEdit = () => {
+      editTaskComponent.render();
       tasksBoard.replaceChild(editTaskComponent.element, taskComponent.element);
-      tasksBoard.replaceChild(taskComponent.element, editTaskComponent.element);
       taskComponent.unrender();
     };
 
@@ -39,16 +37,24 @@ const renderAllCards = (num) => {
       tasksBoard.replaceChild(taskComponent.element, editTaskComponent.element);
       editTaskComponent.unrender();
     };
-  }
-};
+
+    editTaskComponent.unEdit = () => {
+      taskComponent.render();
+      tasksBoard.replaceChild(taskComponent.element, editTaskComponent.element);
+      editTaskComponent.unrender();
+    };
+
+  });
+}
 
 const filterLabel = document.querySelectorAll(`.filter__label`);
 filterLabel.forEach((el) => {
   el.addEventListener(`click`, function () {
     tasksBoard.innerHTML = ``;
-    tasksBoard.appendChild(taskComponent.render());
+    //tasksBoard.appendChild(taskComponent.render());
+    renderTasks();
 
-    taskComponent.onEdit = () => {
+    /*taskComponent.onEdit = () => {
       editTaskComponent.render();
       tasksBoard.replaceChild(editTaskComponent.element, taskComponent.element);
       taskComponent.unrender();
@@ -59,6 +65,6 @@ filterLabel.forEach((el) => {
       tasksBoard.replaceChild(taskComponent.element, editTaskComponent.element);
       editTaskComponent.unrender();
     };
-
+*/
   });
 });

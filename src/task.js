@@ -35,7 +35,7 @@ export class Task {
 
   get template() {
     return `
-    <article class="card card--pink ${this._isRepeated() ? `card--repeat` : ``}">
+    <article class="card card--${this._color} ${this._isRepeated() ? `card--repeat` : ``}">
       <form class="card__form" method="get">
         <div class="card__inner">
           <div class="card__control">

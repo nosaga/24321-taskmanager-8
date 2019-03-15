@@ -46,7 +46,7 @@ export class TaskEdit {
 
   get template() {
     return `
-    <article class="card card--edit card--blue ${this._isRepeated() ? `card--repeat` : ``}">
+    <article class="card card--edit card--${this._color} ${this._isRepeated() ? `card--repeat` : ``}">
       <form class="card__form" method="get">
         <div class="card__inner">
           <div class="card__control">
@@ -167,9 +167,6 @@ export class TaskEdit {
   bind() {
     this._element.querySelector(`.card__form`)
       .addEventListener(`submit`, this._onSubmitButtonClick.bind(this));
-  }
-
-  unEdit() {
     this._element.querySelector(`.card__btn--edit`)
       .addEventListener(`click`, this._unEditCardClick.bind(this));
   }
@@ -182,7 +179,6 @@ export class TaskEdit {
   render() {
     this._element = createElement(this.template);
     this.bind();
-    this.unEdit();
     return this._element;
   }
 

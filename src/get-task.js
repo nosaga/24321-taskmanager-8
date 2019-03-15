@@ -7,11 +7,11 @@ const cardTitle = [
   `Swedish: new words repeat`
 ];
 
-export const cardColors = [`black`, `yellow`, `blue`, `green`, `pink`];
+export const cardColors = [`black`, `yellow`, `blue`, `green`, `pink`, `deadline`];
 export const getTaskType = [`card--edit card--black`, `card--pink card--repeat`, `card--yellow card--deadline`, `card--blue`, `card--edit card--yellow card--repeat`, `card--blue`, `card--pink card-repeat`];
 const boolValues = [true, false];
 
-export const getTask = () => ({
+export const getTasks = () => ({
   title: cardTitle[getRandomNum(0, 4)],
   dueDate: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
   tags: new Set([
@@ -21,6 +21,7 @@ export const getTask = () => ({
     `home chores`,
     `books`
   ]),
+  type: [`edit`, `repeat`],
   picture: `//picsum.photos/100/100?r=${Math.random()}`,
   repeatingDays: {
     'mo': boolValues[getRandomNum(0, 2)],
@@ -36,6 +37,16 @@ export const getTask = () => ({
   archive: boolValues[getRandomNum(0, 2)]
 });
 
+const getTasksArray = () => {
+  const tasks = [];
+  for (let i = 0; i < getRandomNum(7, 15); i++) {
+    tasks.push(getTasks());
+  }
+  return tasks;
+}
+
+
+export const tasks = getTasksArray();
 export const isActive = (active) => active ? `checked` : ``;
 export const isDisabled = (disable) => disable ? `card__btn--disabled` : ``;
 
