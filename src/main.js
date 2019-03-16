@@ -45,26 +45,13 @@ const renderTasks = () => {
     };
 
   });
-}
+};
 
 const filterLabel = document.querySelectorAll(`.filter__label`);
 filterLabel.forEach((el) => {
   el.addEventListener(`click`, function () {
     tasksBoard.innerHTML = ``;
-    //tasksBoard.appendChild(taskComponent.render());
     renderTasks();
-
-    /*taskComponent.onEdit = () => {
-      editTaskComponent.render();
-      tasksBoard.replaceChild(editTaskComponent.element, taskComponent.element);
-      taskComponent.unrender();
-    };
-
-    editTaskComponent.unEdit = () => {
-      taskComponent.render();
-      tasksBoard.replaceChild(taskComponent.element, editTaskComponent.element);
-      editTaskComponent.unrender();
-    };
-*/
   });
 });
+

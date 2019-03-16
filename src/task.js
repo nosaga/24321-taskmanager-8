@@ -1,4 +1,4 @@
-import {isActive, isDisabled} from "./get-task";
+import {isDisabled, isHidden} from "./get-task";
 import {createElement} from "./create-element";
 
 export class Task {
@@ -9,6 +9,7 @@ export class Task {
     this._picture = data.picture;
     this._repeatingDays = data.repeatingDays;
     this._color = data.color;
+    this._display = data.display;
     this._favourite = data.favourite;
     this._archive = data.archive;
     this._element = null;
@@ -98,93 +99,6 @@ export class Task {
                 <button class="card__repeat-toggle" type="button">
                   repeat:<span class="card__repeat-status">no</span>
                 </button>
-
-                <fieldset class="card__repeat-days" disabled>
-                  <div class="card__repeat-days-inner">
-                    <input
-                      class="visually-hidden card__repeat-day-input"
-                      type="checkbox"
-                      id="repeat-mo-2"
-                      name="repeat"
-                      value="mo"
-                      ${isActive(this._repeatingDays.mo)}
-                    />
-                    <label class="card__repeat-day" for="repeat-mo-2"
-                      >mo</label
-                    >
-                    <input
-                      class="visually-hidden card__repeat-day-input"
-                      type="checkbox"
-                      id="repeat-tu-2"
-                      name="repeat"
-                      value="tu"
-                      ${isActive(this._repeatingDays.tu)}
-
-                    />
-                    <label class="card__repeat-day" for="repeat-tu-2"
-                      >tu</label
-                    >
-                    <input
-                      class="visually-hidden card__repeat-day-input"
-                      type="checkbox"
-                      id="repeat-we-2"
-                      name="repeat"
-                      value="we"
-                      ${isActive(this._repeatingDays.we)}
-
-                    />
-                    <label class="card__repeat-day" for="repeat-we-2"
-                      >we</label
-                    >
-                    <input
-                      class="visually-hidden card__repeat-day-input"
-                      type="checkbox"
-                      id="repeat-th-2"
-                      name="repeat"
-                      value="th"
-                      ${isActive(this._repeatingDays.th)}
-
-                    />
-                    <label class="card__repeat-day" for="repeat-th-2"
-                      >th</label
-                    >
-                    <input
-                      class="visually-hidden card__repeat-day-input"
-                      type="checkbox"
-                      id="repeat-fr-2"
-                      name="repeat"
-                      value="fr"
-                      ${isActive(this._repeatingDays.fr)}
-
-                    />
-                    <label class="card__repeat-day" for="repeat-fr-2"
-                      >fr</label
-                    >
-                    <input
-                      class="visually-hidden card__repeat-day-input"
-                      type="checkbox"
-                      name="repeat"
-                      value="sa"
-                      id="repeat-sa-2"
-                      ${isActive(this._repeatingDays.sa)}
-
-                    />
-                    <label class="card__repeat-day" for="repeat-sa-2"
-                      >sa</label
-                    >
-                    <input
-                      class="visually-hidden card__repeat-day-input"
-                      type="checkbox"
-                      id="repeat-su-2"
-                      name="repeat"
-                      value="su"
-                      ${isActive(this._repeatingDays.su)}
-                    />
-                    <label class="card__repeat-day" for="repeat-su-2"
-                      >su</label
-                    >
-                  </div>
-                </fieldset>
               </div>
 
               <div class="card__hashtag">
@@ -203,9 +117,7 @@ export class Task {
                       #${it}
                     </button>
                   </span>`).join(``)}
-
                 </div>
-
                 <label>
                   <input
                     type="text"
@@ -217,7 +129,7 @@ export class Task {
               </div>
             </div>
 
-            <label class="card__img-wrap card__img-wrap--empty">
+            <label class="card__img-wrap ${isHidden(this._display)}">
               <input
                 type="file"
                 class="card__img-input visually-hidden"
@@ -230,76 +142,6 @@ export class Task {
               />
             </label>
 
-            <div class="card__colors-inner">
-              <h3 class="card__colors-title">Color</h3>
-              <div class="card__colors-wrap">
-              <input
-                  type="radio"
-                  id="color-black-2"
-                  class="card__color-input card__color-input--black visually-hidden"
-                  name="color"
-                  value="black"
-                  ${isActive(this._color)}
-                />
-                <label
-                  for="color-black-2"
-                  class="card__color card__color--black"
-                  >black</label
-                >
-                <input
-                  type="radio"
-                  id="color-yellow-2"
-                  class="card__color-input card__color-input--yellow visually-hidden"
-                  name="color"
-                  value="yellow"
-                  ${isActive(this._color)}
-                />
-                <label
-                  for="color-yellow-2"
-                  class="card__color card__color--yellow"
-                  >yellow</label
-                >
-                <input
-                  type="radio"
-                  id="color-blue-2"
-                  class="card__color-input card__color-input--blue visually-hidden"
-                  name="color"
-                  value="blue"
-                  ${isActive(this._color)}
-                />
-                <label
-                  for="color-blue-2"
-                  class="card__color card__color--blue"
-                  >blue</label
-                >
-                <input
-                  type="radio"
-                  id="color-green-2"
-                  class="card__color-input card__color-input--green visually-hidden"
-                  name="color"
-                  value="green"
-                  ${isActive(this._color)}
-                />
-                <label
-                  for="color-green-2"
-                  class="card__color card__color--green"
-                  >green</label
-                >
-                <input
-                  type="radio"
-                  id="color-pink-2"
-                  class="card__color-input card__color-input--pink visually-hidden"
-                  name="color"
-                  value="pink"
-                  ${isActive(this._color)}
-                />
-                <label
-                  for="color-pink-2"
-                  class="card__color card__color--pink"
-                  >pink</label
-                >
-              </div>
-            </div>
           </div>
 
           <div class="card__status-btns">
