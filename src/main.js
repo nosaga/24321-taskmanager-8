@@ -1,6 +1,7 @@
 import {filters} from './make-filter.js';
-import makeTask from './make-task.js';
-import {getTask} from "./get-task";
+import {tasks} from "./get-task";
+import {Task} from "./task";
+import {TaskEdit} from "./task-edit";
 
 const mainFilter = document.querySelector(`.main__filter`);
 const tasksBoard = document.querySelector(`.board__tasks`);
@@ -20,14 +21,37 @@ filters.forEach((filter) => {
   mainFilter.appendChild(label);
 });
 
-const renderTasks = (dist) => {
-  dist.insertAdjacentHTML(`beforeend`, makeTask(getTask()));
+const renderTasks = () => {
+  tasks.forEach((item) => {
+    const taskComponent = new Task(item);
+    const editTaskComponent = new TaskEdit(item);
+    tasksBoard.appendChild(taskComponent.render());
+    taskComponent.onEdit = () => {
+      editTaskComponent.render();
+      tasksBoard.replaceChild(editTaskComponent.element, taskComponent.element);
+      taskComponent.unrender();
+    };
+
+    editTaskComponent.onSubmit = () => {
+      taskComponent.render();
+      tasksBoard.replaceChild(taskComponent.element, editTaskComponent.element);
+      editTaskComponent.unrender();
+    };
+
+    editTaskComponent.unEdit = () => {
+      taskComponent.render();
+      tasksBoard.replaceChild(taskComponent.element, editTaskComponent.element);
+      editTaskComponent.unrender();
+    };
+
+  });
 };
 
 const filterLabel = document.querySelectorAll(`.filter__label`);
 filterLabel.forEach((el) => {
   el.addEventListener(`click`, function () {
     tasksBoard.innerHTML = ``;
-    renderTasks(tasksBoard);
+    renderTasks();
   });
 });
+
