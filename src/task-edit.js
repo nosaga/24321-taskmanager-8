@@ -1,4 +1,3 @@
-import {createElement} from "./create-element";
 import {isActive, isDisabled} from "./get-task";
 import {Component} from "./component";
 

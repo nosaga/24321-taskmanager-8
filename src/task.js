@@ -1,5 +1,4 @@
 import {isDisabled, isHidden} from "./get-task";
-import {createElement} from "./create-element";
 import {Component} from "./component";
 
 export class Task extends Component {
