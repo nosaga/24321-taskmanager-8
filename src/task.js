@@ -1,5 +1,5 @@
 import {isDisabled, isHidden} from "./get-task";
-import {Component} from "./component";
+import Component from "./component";
 
 export class Task extends Component {
   constructor(data) {
