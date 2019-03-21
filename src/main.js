@@ -1,7 +1,7 @@
 import {filters} from './make-filter.js';
 import {tasks} from "./get-task";
-import {Task} from "./task";
-import {TaskEdit} from "./task-edit";
+import Task from "./task";
+import TaskEdit from "./task-edit";
 
 const mainFilter = document.querySelector(`.main__filter`);
 const tasksBoard = document.querySelector(`.board__tasks`);
