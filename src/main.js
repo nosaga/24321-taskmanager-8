@@ -32,7 +32,15 @@ const renderTasks = () => {
       taskComponent.unrender();
     };
 
-    editTaskComponent.onSubmit = () => {
+    editTaskComponent.onSubmit = (newObject) => {
+      item.title = newObject.title;
+      item.tags = newObject.tags;
+      item.color = newObject.color;
+      item.repeatingDays = newObject.repeatingDays;
+      item.dueDate = newObject.dueDate;
+      item.dueTime = newObject.dueTime;
+
+      taskComponent.update(item);
       taskComponent.render();
       tasksBoard.replaceChild(taskComponent.element, editTaskComponent.element);
       editTaskComponent.unrender();
