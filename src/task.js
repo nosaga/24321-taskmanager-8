@@ -1,5 +1,7 @@
 import {isDisabled, isHidden} from "./get-task";
 import Component from "./component";
+const moment = require(`moment`);
+moment().format();
 
 export default class Task extends Component {
   constructor(data) {
@@ -97,7 +99,7 @@ export default class Task extends Component {
                   repeat:<span class="card__repeat-status">no</span>
                 </button>
               </div>
-
+              <div class = "card__dates">${moment().format(`LLL`)}</div>
               <div class="card__hashtag">
                 <div class="card__hashtag-list">
                   ${[...this._tags].map((it) => `<span class="card__hashtag-inner">
@@ -158,5 +160,12 @@ export default class Task extends Component {
   unbind() {
     this._element.querySelector(`.card__btn--edit`)
       .removeEventListener(`click`, this._onEditButtonClick);
+  }
+
+  update(data) {
+    this._title = data.title;
+    this._tags = data.tags;
+    this._color = data.color;
+    this._repeatingDays = data.repeatingDays;
   }
 }
