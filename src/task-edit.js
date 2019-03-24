@@ -77,10 +77,6 @@ export default class TaskEdit extends Component {
     this.bind();
   }
 
-  _isRepeated() {
-    return Object.values(this._repeatingDays).some((it) => it === true);
-  }
-
   _partialUpdate() {
     this._element.innerHTML = this.template;
   }
@@ -346,7 +342,6 @@ ${isActive(this._repeatingDays.mo)}
       .addEventListener(`click`, this._onChangeRepeated);
 
     if (this._state.isDate) {
-      console.log(this._element.querySelector(`.card__date`));
       flatpickr(this._element.querySelector(`.card__date`), {altInput: true, altFormat: `j F`, dateFormat: `j F`});
       flatpickr(this._element.querySelector(`.card__time`), {enableTime: true, noCalendar: true, altInput: true, altFormat: `h:i K`, dateFormat: `h:i K`});
     }
