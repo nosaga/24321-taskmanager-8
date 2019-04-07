@@ -11,23 +11,28 @@ const tagsCtx = document.querySelector(`.statistic__tags`);
 const colorsCtx = document.querySelector(`.statistic__colors`);
 const tagStatsBlock = document.querySelector(`.statistic__tags-wrap`)
 const colorStatsBlock = document.querySelector(`.statistic__colors-wrap`)
-const startDate = moment().startOf(`week`);
-const endDate = moment().endOf(`week`);
+const startDate = moment().startOf(`isoWeek`);
+const endDate = moment().endOf(`isoWeek`);
+
 
 const renderCalendar = () => {
   flatpickr(statInput, {
     mode: `range`,
-    minDate: startDate,
-    maxDate: endDate,
+    defaultDate: [startDate, endDate],
     dateFormat: `j F`
   });
 };
+
+console.log(startDate);
+console.log(endDate);
+statInput.addEventListener(`onchange`, function () {console.log(startDate)});
+
 
 const getRangeTasks = (start, end, task) => {
   return task.filter((item) => {
     return item.dueDate >= start && item.dueDate <= end;
   });
-}
+};
 
 export const showStats = () => {
   boardSelector.classList.add(`visually-hidden`);
