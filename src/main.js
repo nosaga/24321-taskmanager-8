@@ -4,18 +4,34 @@ import {getTasksArray, tasks} from "./get-task";
 import {hideTask} from "./get-task";
 import Task from "./task";
 import TaskEdit from "./task-edit";
-import {showStats} from "./statistics";
+import {sortTasks} from "./statistics";
+import {renderCalendar} from "./statistics";
+import {colorStatsRender} from "./statistics";
+import {tagsStatRender} from "./statistics";
 import moment from "moment";
+export const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 const mainFilter = document.querySelector(`.main__filter`);
 const tasksBoard = document.querySelector(`.board__tasks`);
 const filtersAll = document.querySelector(`.filter`);
 const chartSelector = document.querySelector(`#control__statistic`);
+const statisticsSelector = document.querySelector(`.statistic`);
+const boardSelector = document.querySelector(`.board.container`);
 
+const showStats = () => {
+  boardSelector.classList.add(`visually-hidden`);
+  statisticsSelector.classList.remove(`visually-hidden`);
+  // TODO: filter tasks
 
-export const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+  // sort tasks
+  const colorsData = sortTasks(tasks);
+  const tagsData = sortTasks(tasks);
 
-chartSelector.addEventListener(`click`, showStats);
+  // pass sortedTasks (colors and tags)
+  const ColorsChart = colorStatsRender(colorsData.sortedByColors);
+  const TagsChart = tagsStatRender(tagsData.sortedByTags);
+  renderCalendar({ColorsChart, TagsChart}, tasks);
+};
 
 const renderFilters = () => {
   filters.forEach((filter) => {
@@ -24,7 +40,6 @@ const renderFilters = () => {
   });
 };
 
-renderFilters();
 
 const initialTasks = getTasksArray();
 
@@ -94,6 +109,9 @@ const renderTasks = (tasksAll) => {
 };
 
 renderTasks(initialTasks);
+renderFilters();
+
+chartSelector.addEventListener(`click`, showStats);
 
 filtersAll.onchange = (evt) => {
   const filterName = evt.target.id;
