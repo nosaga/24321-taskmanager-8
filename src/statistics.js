@@ -55,6 +55,14 @@ const updateChart = (chart, label, data)=> {
   chart.update();
 };
 
+const removeData = (chart) => {
+  chart.data.labels.shift();
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data.shift();
+  });
+  chart.update();
+};
+
 export const renderCalendar = ({ColorsChart, TagsChart}, tasks) => {
   flatpickr(statInput, {
     mode: `range`,
@@ -69,12 +77,16 @@ export const renderCalendar = ({ColorsChart, TagsChart}, tasks) => {
 
       const colorData = sortTasks(tasks);
       const tagData = sortTasks(tasks);
+      ColorsChart = colorStatsRender(colorData.sortedByColors);
+      TagsChart = tagsStatRender(tagData.sortedByTags);
 
       // update chart https://www.chartjs.org/docs/latest/developers/updates.html
       for (let i = 0; i < Object.keys(colorData.sortedByColors).length; i++) {
         updateChart(ColorsChart, Object.keys(colorData.sortedByColors)[i], Object.values(colorData.sortedByColors));
+        removeData(ColorsChart);
 
         updateChart(TagsChart, Object.keys(tagData.sortedByTags)[i], Object.values(tagData.sortedByTags));
+        removeData(TagsChart);
       }
     },
   });
