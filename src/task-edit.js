@@ -14,12 +14,12 @@ export default class TaskEdit extends Component {
     this._archive = data.archive;
     this._element = null;
     this._unEdit = null;
-
-    this._onSubmitButtonClick = this._onSubmitButtonClick.bind(this);
+    this._onDelete = null;
     this._onSubmit = null;
     this._state.isDate = false;
     this._state.isRepeated = false;
-
+    this._onClick = this._onClick.bind(this);
+    this._onSubmitButtonClick = this._onSubmitButtonClick.bind(this);
     this._onChangeDate = this._onChangeDate.bind(this);
     this._onChangeRepeated = this._onChangeRepeated.bind(this);
   }
@@ -63,6 +63,12 @@ export default class TaskEdit extends Component {
     this.update(newData);
   }
 
+  _onClick() {
+    if (typeof this._onDelete === `function`) {
+      this._onDelete();
+    }
+  }
+
   _onChangeDate() {
     this._state.isDate = !this._state.isDate;
     this.unbind();
@@ -89,6 +95,10 @@ export default class TaskEdit extends Component {
 
   set unEdit(fn) {
     this._unEdit = fn;
+  }
+
+  set onDelete(fn) {
+    this._onDelete = fn;
   }
 
   set onSubmit(fn) {
@@ -340,6 +350,8 @@ ${isActive(this._repeatingDays.mo)}
       .addEventListener(`click`, this._onChangeDate);
     this._element.querySelector(`.card__repeat-toggle`)
       .addEventListener(`click`, this._onChangeRepeated);
+    this._element.querySelector(`.card__delete`)
+      .addEventListener(`click`, this._onClick);
 
     if (this._state.isDate) {
       flatpickr(this._element.querySelector(`.card__date`), {altInput: true, altFormat: `j F`, dateFormat: `j F`});
@@ -356,6 +368,8 @@ ${isActive(this._repeatingDays.mo)}
       .removeEventListener(`click`, this._onChangeDate);
     this._element.querySelector(`.card__repeat-toggle`)
       .removeEventListener(`click`, this._onChangeRepeated);
+    this._element.querySelector(`.card__delete`)
+      .removeEventListener(`click`, this._onClick);
   }
 
   update(data) {

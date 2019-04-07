@@ -37,7 +37,7 @@ export const getTasks = () => ({
   archive: boolValues[getRandomNum(0, 2)]
 });
 
-const getTasksArray = () => {
+export const getTasksArray = () => {
   const tasks = [];
   for (let i = 0; i < getRandomNum(7, 15); i++) {
     tasks.push(getTasks());
@@ -49,4 +49,7 @@ export const tasks = getTasksArray();
 export const isActive = (active) => active ? `checked` : ``;
 export const isDisabled = (disable) => disable ? `card__btn--disabled` : ``;
 export const isHidden = (hidden) => hidden ? `card__img-wrap--empty` : ``;
-
+export const hideTask = (items, i) => {
+  items.splice(i, 1);
+  return items;
+};

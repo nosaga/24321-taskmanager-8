@@ -1,46 +1,84 @@
 import {filters} from './make-filter.js';
-import {tasks} from "./get-task";
+import Filters from "./filter";
+import {getTasksArray, tasks} from "./get-task";
+import {hideTask} from "./get-task";
 import Task from "./task";
 import TaskEdit from "./task-edit";
+import {showStats} from "./statistics";
+import moment from "moment";
 
 const mainFilter = document.querySelector(`.main__filter`);
 const tasksBoard = document.querySelector(`.board__tasks`);
+const filtersAll = document.querySelector(`.filter`);
+const chartSelector = document.querySelector(`#control__statistic`);
+
+
 export const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
-filters.forEach((filter) => {
-  const input = document.createElement(`input`);
-  input.classList.add(`filter__input`, `visually-hidden`);
-  input.setAttribute(`id`, `filter__` + filter.title.toLowerCase());
-  input.setAttribute(`type`, `radio`);
-  input.setAttribute(`name`, `filter`);
-  const label = document.createElement(`label`);
-  label.className = `filter__label`;
-  label.setAttribute(`for`, `filter__` + filter.title.toLowerCase());
-  label.innerHTML = `<span>` + filter.title + ` ` + filter.number + `</span>`;
-  mainFilter.appendChild(input);
-  mainFilter.appendChild(label);
-});
+chartSelector.addEventListener(`click`, showStats);
 
-const renderTasks = () => {
-  tasks.forEach((item) => {
-    const taskComponent = new Task(item);
-    const editTaskComponent = new TaskEdit(item);
-    tasksBoard.appendChild(taskComponent.render());
+const renderFilters = () => {
+  filters.forEach((filter) => {
+    const filterComponent = new Filters(filter);
+    mainFilter.appendChild(filterComponent.render());
+  });
+};
+
+renderFilters();
+
+const initialTasks = getTasksArray();
+
+
+const filterTasks = (tasksAll, filterName) => {
+  switch (filterName) {
+    case `filter__All`:
+      return tasksAll;
+    case `filter__Overdue`:
+      return tasksAll.filter((it) => moment(it.dueDate) < moment());
+
+    case `filter__Today`:
+      return tasksAll.filter((it) => moment(it.dueDate).format(`D MMMM`) === moment().format(`D MMMM`));
+
+    case `filter__Favorites`:
+      return tasksAll.filter((it) => it.favourite === true);
+
+    case `filter__Repeating`:
+      return tasksAll.filter((it) => [...Object.entries(it.repeatingDays)]
+        .some((rec) => rec[1]));
+
+    default:
+      return tasksAll;
+  }
+};
+
+const renderTasks = (tasksAll) => {
+  tasksBoard.innerHTML = ``;
+
+  for (let i = 0; i < tasksAll.length; i++) {
+    const task = tasksAll[i];
+    const taskComponent = new Task(task);
+    const editTaskComponent = new TaskEdit(task);
+
     taskComponent.onEdit = () => {
       editTaskComponent.render();
       tasksBoard.replaceChild(editTaskComponent.element, taskComponent.element);
       taskComponent.unrender();
     };
 
-    editTaskComponent.onSubmit = (newObject) => {
-      item.title = newObject.title;
-      item.tags = newObject.tags;
-      item.color = newObject.color;
-      item.repeatingDays = newObject.repeatingDays;
-      item.dueDate = newObject.dueDate;
-      item.dueTime = newObject.dueTime;
+    editTaskComponent.onDelete = () => {
+      hideTask(tasks, task);
+      editTaskComponent.unrender();
+    };
 
-      taskComponent.update(item);
+    editTaskComponent.onSubmit = (newObject) => {
+      task.title = newObject.title;
+      task.tags = newObject.tags;
+      task.color = newObject.color;
+      task.repeatingDays = newObject.repeatingDays;
+      task.dueDate = newObject.dueDate;
+      task.dueTime = newObject.dueTime;
+
+      taskComponent.update(task);
       taskComponent.render();
       tasksBoard.replaceChild(taskComponent.element, editTaskComponent.element);
       editTaskComponent.unrender();
@@ -51,15 +89,15 @@ const renderTasks = () => {
       tasksBoard.replaceChild(taskComponent.element, editTaskComponent.element);
       editTaskComponent.unrender();
     };
-
-  });
+    tasksBoard.appendChild(taskComponent.render());
+  }
 };
 
-const filterLabel = document.querySelectorAll(`.filter__label`);
-filterLabel.forEach((el) => {
-  el.addEventListener(`click`, function () {
-    tasksBoard.innerHTML = ``;
-    renderTasks();
-  });
-});
+renderTasks(initialTasks);
+
+filtersAll.onchange = (evt) => {
+  const filterName = evt.target.id;
+  const filteredTasks = filterTasks(initialTasks, filterName);
+  renderTasks(filteredTasks);
+};
 
