@@ -24,12 +24,11 @@ const showStats = () => {
   // TODO: filter tasks
 
   // sort tasks
-  const colorsData = sortTasks(tasks);
-  const tagsData = sortTasks(tasks);
+  const sortedAll = sortTasks(tasks);
 
   // pass sortedTasks (colors and tags)
-  const ColorsChart = colorStatsRender(colorsData.sortedByColors);
-  const TagsChart = tagsStatRender(tagsData.sortedByTags);
+  const ColorsChart = colorStatsRender(sortedAll.sortedByColors);
+  const TagsChart = tagsStatRender(sortedAll.sortedByTags);
   renderCalendar({ColorsChart, TagsChart}, tasks);
 };
 

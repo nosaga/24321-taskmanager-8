@@ -48,19 +48,10 @@ const filterTasks = (inputTasks, start, end) => {
 };
 
 const updateChart = (chart, label, data)=> {
-  chart.data.labels.push(label);
+  chart.data.labels.splice(0, 1, label);
   chart.data.datasets.forEach((dataset) => {
-    dataset.data.push(data);
+    dataset.data.splice(0, 1, data);
   });
-  chart.update();
-};
-
-const removeData = (chart) => {
-  chart.data.labels.shift();
-  chart.data.datasets.forEach((dataset) => {
-    dataset.data.shift();
-  });
-  chart.update();
 };
 
 export const renderCalendar = ({ColorsChart, TagsChart}, tasks) => {
@@ -72,22 +63,31 @@ export const renderCalendar = ({ColorsChart, TagsChart}, tasks) => {
       const startMS = +start;
       const endMS = +end;
 
-      filterTasks(tasks, startMS, endMS);
-      sortTasks(tasks);
 
-      const colorData = sortTasks(tasks);
-      const tagData = sortTasks(tasks);
-      ColorsChart = colorStatsRender(colorData.sortedByColors);
-      TagsChart = tagsStatRender(tagData.sortedByTags);
+      const filteredTasks = filterTasks(tasks, startMS, endMS);
+      sortTasks(filteredTasks);
 
-      // update chart https://www.chartjs.org/docs/latest/developers/updates.html
-      for (let i = 0; i < Object.keys(colorData.sortedByColors).length; i++) {
-        updateChart(ColorsChart, Object.keys(colorData.sortedByColors)[i], Object.values(colorData.sortedByColors));
-        removeData(ColorsChart);
+      const sortedAll = sortTasks(filteredTasks);
+      const sortedColors = Object.keys(sortedAll.sortedByColors);
+      const sortedTags = Object.keys(sortedAll.sortedByTags);
 
-        updateChart(TagsChart, Object.keys(tagData.sortedByTags)[i], Object.values(tagData.sortedByTags));
-        removeData(TagsChart);
-      }
+      ColorsChart = colorStatsRender(sortedAll.sortedByColors);
+      TagsChart = tagsStatRender(sortedAll.sortedByTags);
+
+      sortedColors.forEach((color) => {
+        updateChart(
+            ColorsChart,
+            Object.keys(sortedColors)[color],
+            Object.values(sortedColors)
+        );
+      });
+      sortedTags.forEach((tag) => {
+        updateChart(
+            TagsChart,
+            Object.keys(sortedTags)[tag],
+            Object.values(sortedTags)
+        );
+      });
     },
   });
 };
